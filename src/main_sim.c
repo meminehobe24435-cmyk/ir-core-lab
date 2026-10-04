@@ -129,16 +129,19 @@ static void run_tec_section(void)
     }
     free(t_c); free(u_c); free(t_n); free(t_b);
 
-    /* Gain sweep: Kp x Ki, with and without anti-windup. */
+    /* Gain sweep: Kp x Ki, with and without anti-windup.
+     * The bandwidth column is the peak to peak excursion of the last 20 % of
+     * the run: it is how an integrator that is too fast for a quantised
+     * thermistor shows up as a limit cycle instead of a steady state. */
     {
         const double kps[4] = {2.5, 5.0, 8.0, 12.0};
-        const double kis[4] = {0.625, 1.25, 2.5, 5.0};
+        const double kis[5] = {0.625, 1.25, 2.5, 5.0, 6.0};
         FILE *g = ir_fopen_w(RESULT_DIR "tec_gain_sweep.csv");
         int a, b;
         ir_fprintf(g, "# Kp_W_per_K,Ki_W_per_K_s,aw_mode,overshoot_pct,"
-                      "settle_s,ss_err_K,sat_s\n");
+                      "settle_s,ss_err_K,sat_s,bandwidth_pk_pk_K\n");
         for (a = 0; a < 4; ++a) {
-            for (b = 0; b < 4; ++b) {
+            for (b = 0; b < 5; ++b) {
                 int w;
                 for (w = 0; w < 2; ++w) {
                     tec_metrics_t mm;
@@ -147,9 +150,10 @@ static void run_tec_section(void)
                     pc.aw_mode = (w == 0) ? IR_TEC_AW_NONE : IR_TEC_AW_CLAMP;
                     if (tec_run_step(&pl, &pc, sp, t0, dt, n, NULL, NULL, NULL,
                                      &mm) == IR_OK) {
-                        ir_fprintf(g, "%.3f,%.4f,%d,%.3f,%.3f,%.5f,%.3f\n",
+                        ir_fprintf(g, "%.3f,%.4f,%d,%.3f,%.3f,%.5f,%.3f,%.5f\n",
                                    kps[a], kis[b], pc.aw_mode, mm.overshoot_pct,
-                                   mm.settle_time_s, mm.ss_error_K, mm.sat_time_s);
+                                   mm.settle_time_s, mm.ss_error_K,
+                                   mm.sat_time_s, mm.bandwidth_K);
                     }
                 }
             }

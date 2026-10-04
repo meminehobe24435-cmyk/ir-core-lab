@@ -17,6 +17,11 @@ core
 # scratch file created by the file I/O test
 _test_write.tmp
 
+# captured stdout of manual runs and of the CI steps
+sim_out.txt
+sim_stdout.txt
+sim_asan.txt
+
 # editor and OS noise
 .DS_Store
 Thumbs.db

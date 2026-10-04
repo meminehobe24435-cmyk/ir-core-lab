@@ -1,0 +1,61 @@
+ir-core-lab -- end to end infrared core signal chain simulation
+All numbers below are produced by this run; see results/*.csv for the raw traces.
+
+== 1. TEC temperature loop (cold platform) ==
+plant: Rth=2.00 K/W  Cth=4.00 J/K  tau=8.0 s  dead time=0.40 s  ambient=25.0 C  drive=[-30, 30] W  sensor LSB=0.010 K
+step: 25.0 C -> -20.0 C (-45 K)   PID Kp=5.00 W/K Ki=2.50 W/(K*s) Kd=0.00  dead zone=0.020 K
+  no anti-windup   overshoot= 30.31 %  settle(+-0.1 K)= 37.00 s  steady-state err=+0.0200 K  actuator saturated= 30.28 s
+  clamping         overshoot=  0.04 %  settle(+-0.1 K)= 13.98 s  steady-state err=-0.0190 K  actuator saturated=  8.84 s
+  back-calculation overshoot=  2.97 %  settle(+-0.1 K)= 15.82 s  steady-state err=+0.0184 K  actuator saturated= 11.48 s
+  anti-windup effect: overshoot 30.31 % -> 0.04 % (-99.9 % relative), settling 37.00 s -> 13.98 s (-62.2 %), time spent saturated 30.28 s -> 8.84 s
+  robustness scan written (results/tec_robustness.csv); Rth <= 1.5 K/W cannot reach the setpoint at all because it needs more than the 30 W of drive available
+
+== 2. Non-uniformity correction (two point) ==
+array 128x128, gain spread 12.0 % RMS, offset spread 6.0 counts, curvature 0.02, temporal noise 0.60 counts
+NU [%] = 100 * sigma / |mean| over a uniform scene
+  phi= 100.0  NU raw= 13.355 %  after 2-point= 0.857 %  after 1-point=  0.838 %
+  phi= 200.0  NU raw= 12.250 %  after 2-point= 0.625 %  after 1-point=  5.976 %
+  phi= 230.0  NU raw= 12.161 %  after 2-point= 0.517 %  after 1-point=  6.763 %
+  phi= 300.0  NU raw= 12.075 %  after 2-point= 0.291 %  after 1-point=  8.028 %
+  headline at phi=236.0 (68 % of the calibration span): raw 12.148 % -> two point 0.492 % -> single point 6.897 %
+  two point correction improves NU by 24.7x; single point (offset only) by 1.8x and it degrades as the scene moves away from the calibration flux
+
+== 3. Blind pixel detection and replacement ==
+injected 327 blind pixels (2.00 %): 40 % dead, 40 % hot, 20 % at 50 % responsivity
+  3-sigma, one pass over all pixels : detected  80.12 %  false alarms 0.000 %
+  3-sigma, iterated sigma clipping  : detected 100.00 %  false alarms 0.299 %
+  3x3 median replacement of 375 pixels: |error| vs nominal mean 262.45 -> 7.88 counts, RMSE 294.00 -> 9.75, worst 560.80 -> 25.41
+
+== 4. Dynamic range compression (AGC) ==
+scene 128x128: background 200.0 with gradient (15, -8), target +30 on 20 x 20 pixels, noise sigma 2.0
+  input        sd=  7.077  local contrast=0.0097  Michelson T/B=  6.87 %  Weber T/B=   14.76 %  CNR= 11.890
+  linear stretch sd= 42.544 (+501.2 %)  local=0.2026 (+1993.4 %)  Michelson= 55.86 %  Weber=  253.10 %  CNR= 11.615
+  plain HEQ      sd= 73.588 (+939.8 %)  local=0.2662 (+2650.1 %)  Michelson= 37.66 %  Weber=  120.80 %  CNR=  3.641
+  plateau HEQ    sd= 52.734 (+645.2 %)  local=0.2122 (+2092.0 %)  Michelson= 44.99 %  Weber=  163.59 %  CNR=  6.926
+
+== 5. Frame output and timing ==
+  128x128 IR raster: 128 active + 32 blanking pixels/line, 128 active + 16 blanking lines, 1 clock/pixel
+    clocks/frame = 23040 (expected 23040)  active pixel clocks = 16384 (expected 16384)  lines = 144  all counts ok = yes
+  BT.656 625/50 reference raster: 720 active + 144 blanking pixels/line, 576 + 49 lines, 2 clocks/pixel
+    clocks/line = 1728   clocks/frame = 1080000   = 40.000 ms at 27 MHz
+    walked with no image data: clocks=1080000 active=829440 hsync=180000 vsync=84672 counts ok = yes
+
+== 6. Serial frame protocol (CRC-16/CCITT) ==
+  CRC-16/CCITT-FALSE self test "123456789" -> 0x29B1 (standard vector 0x29B1)
+  packed 16 payload bytes into 23 bytes; parse rc=0, type=0x21, len=16, consumed=23, payload match=yes
+  one flipped bit in the payload: CRC 0x59E4 -> 0x52BE, parse rc=-12 (expect -12 = CRC error)
+
+== 7. VCSEL constant current driver and temperature drift ==
+device: Ith(25 C)=1.0000 mA, Ith(70 C)=1.9983 mA (T0=65 K), eta(25)=1.000 W/A, eta(70)=0.735 W/A, target power 5.00 mW
+current needed: 5.9800 mA at 25 C, 8.7784 mA at 70 C (driver limit 15 mA)
+firmware model (least squares over 25..70 C): Ith = 3.970740e-04 + 2.201796e-05*T,  eta = 1.154143e+00 + -5.900000e-03*T
+  fixed current              max |dP|= 41.109 %   RMS |dP|= 23.284 %   P in [2.945, 5.000] mW   I in [5.980, 5.980] mA
+  temperature feedforward    max |dP|=  1.774 %   RMS |dP|=  0.825 %   P in [4.911, 5.046] mW   I in [5.895, 8.658] mA
+  closed loop APC            max |dP|=  0.008 %   RMS |dP|=  0.008 %   P in [5.000, 5.000] mW   I in [5.980, 8.779] mA
+  current loop step to 6.000 mA: overshoot=0.012 %, settle(+-1 %)=43.50 us, steady-state error=+0.5429 uA, final=6.000484 mA
+  (driver tau = 20 us, PI Kp=2.0 Ki=100000 A/(A*s), control period 0.50 us)
+  APC at 70 C with MPD noise (7.5 uA RMS, MPD 0.5 A/W, 1.2 uA LSB): optical power deviation RMS 0.016 %, peak 0.056 %
+
+== summary ==
+This is a pure numerical simulation: no detector, no TEC, no VCSEL, no MCU.
+See README.md "Boundaries" for what is and is not modelled.

@@ -1,0 +1,80 @@
+name: ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.os }} / ${{ matrix.cc }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+        cc: [ gcc, clang ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compiler versions
+        run: |
+          ${{ matrix.cc }} --version
+
+      - name: Build (warnings are errors)
+        run: make CC=${{ matrix.cc }}
+
+      - name: Self tests
+        run: make test CC=${{ matrix.cc }}
+
+      # The simulation writes results/*.csv and results/metrics.txt.  Its
+      # stdout is redirected to a file rather than piped to `head`: a broken
+      # pipe would raise SIGPIPE and fail the job even on success.
+      - name: End to end simulation
+        run: |
+          make sim CC=${{ matrix.cc }} > sim_stdout.txt
+          tail -n 20 sim_stdout.txt
+
+      - name: Show the metrics that were produced
+        run: cat results/metrics.txt
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ matrix.os }}-${{ matrix.cc }}
+          path: |
+            results/
+            sim_stdout.txt
+          if-no-files-found: error
+
+  sanitizers:
+    name: ubuntu-latest / clang ASan+UBSan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build with ASan + UBSan
+        run: |
+          make clean CC=clang
+          make CC=clang \
+            CFLAGS="-std=c99 -O1 -g -Wall -Wextra -Werror -ffp-contract=off -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all"
+
+      # ASAN_OPTIONS: LeakSanitizer is on by default on Linux, and the
+      # simulation does allocate; detect_leaks=1 makes a missed free a failure
+      # rather than a warning.  UBSAN_OPTIONS prints a summary at exit.
+      - name: Self tests under sanitizers
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+        run: ./test_ir
+
+      - name: Simulation under sanitizers
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+        run: |
+          ./sim_ir > sim_asan.txt
+          tail -n 20 sim_asan.txt

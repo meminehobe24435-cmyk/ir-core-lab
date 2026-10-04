@@ -1,0 +1,31 @@
+# build products
+test_ir
+test_ir.exe
+sim_ir
+sim_ir.exe
+*.o
+*.obj
+*.exe
+
+# sanitizer / coverage side files
+*.gcda
+*.gcno
+*.gcov
+vgcore.*
+core
+
+# scratch file created by the file I/O test
+_test_write.tmp
+
+# editor and OS noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.vscode/
+.idea/
+
+# NOTE: results/ IS committed on purpose.  The simulation is fully
+# deterministic (fixed seeds, no rand(), no time, no threads), so
+# `make sim` reproduces those files byte for byte; committing them means the
+# numbers quoted in README.md can be checked without building anything.

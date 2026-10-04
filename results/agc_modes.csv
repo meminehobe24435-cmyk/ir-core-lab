@@ -1,0 +1,4 @@
+# mode,input_sd,output_sd,sd_gain_pct,local_contrast,michelson_pct,weber_pct,cnr,entropy_bits
+linear stretch,7.0768,42.5436,501.1690,0.2026,55.8596,253.0993,11.6150,7.1235
+plain HEQ,7.0768,73.5881,939.8489,0.2662,37.6556,120.7987,3.6413,6.9981
+plateau HEQ,7.0768,52.7336,645.1603,0.2122,44.9932,163.5912,6.9260,7.1017

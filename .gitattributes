@@ -1,0 +1,12 @@
+# Keep every text file LF in the repository and in the working tree.
+#
+# This matters more than usual here: the CI runs on Linux and macOS, and a
+# Makefile checked out with CRLF line endings makes GNU Make pass the trailing
+# carriage return to the shell, so `rm -f test_ir` silently tries to delete a
+# file named "test_ir\r".
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.zip binary

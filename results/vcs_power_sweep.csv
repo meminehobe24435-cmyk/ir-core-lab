@@ -1,0 +1,139 @@
+# t_C,mode,i_set_mA,p_out_mW,deviation_pct
+25.0,fixed current,5.98000,5.000000,0.00000
+26.0,fixed current,5.98000,4.959575,-0.80851
+27.0,fixed current,5.98000,4.918869,-1.62262
+28.0,fixed current,5.98000,4.877885,-2.44230
+29.0,fixed current,5.98000,4.836625,-3.26751
+30.0,fixed current,5.98000,4.795090,-4.09820
+31.0,fixed current,5.98000,4.753283,-4.93434
+32.0,fixed current,5.98000,4.711206,-5.77589
+33.0,fixed current,5.98000,4.668861,-6.62279
+34.0,fixed current,5.98000,4.626250,-7.47500
+35.0,fixed current,5.98000,4.583377,-8.33246
+36.0,fixed current,5.98000,4.540243,-9.19514
+37.0,fixed current,5.98000,4.496851,-10.06298
+38.0,fixed current,5.98000,4.453204,-10.93591
+39.0,fixed current,5.98000,4.409305,-11.81389
+40.0,fixed current,5.98000,4.365157,-12.69686
+41.0,fixed current,5.98000,4.320763,-13.58475
+42.0,fixed current,5.98000,4.276125,-14.47749
+43.0,fixed current,5.98000,4.231248,-15.37504
+44.0,fixed current,5.98000,4.186135,-16.27731
+45.0,fixed current,5.98000,4.140788,-17.18424
+46.0,fixed current,5.98000,4.095213,-18.09575
+47.0,fixed current,5.98000,4.049411,-19.01177
+48.0,fixed current,5.98000,4.003389,-19.93222
+49.0,fixed current,5.98000,3.957149,-20.85703
+50.0,fixed current,5.98000,3.910695,-21.78610
+51.0,fixed current,5.98000,3.864032,-22.71935
+52.0,fixed current,5.98000,3.817165,-23.65670
+53.0,fixed current,5.98000,3.770098,-24.59805
+54.0,fixed current,5.98000,3.722835,-25.54331
+55.0,fixed current,5.98000,3.675381,-26.49237
+56.0,fixed current,5.98000,3.627742,-27.44515
+57.0,fixed current,5.98000,3.579923,-28.40154
+58.0,fixed current,5.98000,3.531929,-29.36142
+59.0,fixed current,5.98000,3.483766,-30.32469
+60.0,fixed current,5.98000,3.435438,-31.29124
+61.0,fixed current,5.98000,3.386953,-32.26094
+62.0,fixed current,5.98000,3.338316,-33.23368
+63.0,fixed current,5.98000,3.289533,-34.20933
+64.0,fixed current,5.98000,3.240612,-35.18777
+65.0,fixed current,5.98000,3.191557,-36.16885
+66.0,fixed current,5.98000,3.142377,-37.15246
+67.0,fixed current,5.98000,3.093078,-38.13843
+68.0,fixed current,5.98000,3.043668,-39.12664
+69.0,fixed current,5.98000,2.994154,-40.11693
+70.0,fixed current,5.98000,2.944543,-41.10915
+25.0,temperature feedforward,5.89466,4.914660,-1.70680
+26.0,temperature feedforward,5.94584,4.925591,-1.48819
+27.0,temperature feedforward,5.99737,4.936069,-1.27863
+28.0,temperature feedforward,6.04926,4.946091,-1.07818
+29.0,temperature feedforward,6.10150,4.955654,-0.88692
+30.0,temperature feedforward,6.15410,4.964755,-0.70491
+31.0,temperature feedforward,6.20708,4.973389,-0.53223
+32.0,temperature feedforward,6.26044,4.981553,-0.36893
+33.0,temperature feedforward,6.31418,4.989245,-0.21510
+34.0,temperature feedforward,6.36831,4.996460,-0.07079
+35.0,temperature feedforward,6.42285,5.003196,0.06392
+36.0,temperature feedforward,6.47779,5.009448,0.18897
+37.0,temperature feedforward,6.53314,5.015214,0.30429
+38.0,temperature feedforward,6.58892,5.020491,0.40981
+39.0,temperature feedforward,6.64514,5.025274,0.50547
+40.0,temperature feedforward,6.70179,5.029560,0.59121
+41.0,temperature feedforward,6.75888,5.033347,0.66695
+42.0,temperature feedforward,6.81644,5.036631,0.73263
+43.0,temperature feedforward,6.87446,5.039409,0.78818
+44.0,temperature feedforward,6.93295,5.041677,0.83355
+45.0,temperature feedforward,6.99193,5.043433,0.86866
+46.0,temperature feedforward,7.05141,5.044672,0.89345
+47.0,temperature feedforward,7.11139,5.045393,0.90785
+48.0,temperature feedforward,7.17188,5.045590,0.91181
+49.0,temperature feedforward,7.23289,5.045262,0.90525
+50.0,temperature feedforward,7.29445,5.044406,0.88812
+51.0,temperature feedforward,7.35655,5.043017,0.86034
+52.0,temperature feedforward,7.41920,5.041093,0.82186
+53.0,temperature feedforward,7.48243,5.038631,0.77261
+54.0,temperature feedforward,7.54624,5.035627,0.71253
+55.0,temperature feedforward,7.61064,5.032078,0.64156
+56.0,temperature feedforward,7.67566,5.027981,0.55962
+57.0,temperature feedforward,7.74129,5.023333,0.46667
+58.0,temperature feedforward,7.80755,5.018131,0.36263
+59.0,temperature feedforward,7.87447,5.012372,0.24744
+60.0,temperature feedforward,7.94204,5.006052,0.12103
+61.0,temperature feedforward,8.01029,4.999168,-0.01665
+62.0,temperature feedforward,8.07924,4.991717,-0.16567
+63.0,temperature feedforward,8.14889,4.983695,-0.32610
+64.0,temperature feedforward,8.21926,4.975100,-0.49800
+65.0,temperature feedforward,8.29038,4.965928,-0.68143
+66.0,temperature feedforward,8.36225,4.956177,-0.87647
+67.0,temperature feedforward,8.43490,4.945841,-1.08317
+68.0,temperature feedforward,8.50834,4.934919,-1.30161
+69.0,temperature feedforward,8.58260,4.923407,-1.53185
+70.0,temperature feedforward,8.65768,4.911302,-1.77397
+25.0,closed loop APC,5.98039,5.000392,0.00784
+26.0,closed loop APC,6.02103,5.000401,0.00801
+27.0,closed loop APC,6.06237,5.000407,0.00814
+28.0,closed loop APC,6.10440,5.000397,0.00793
+29.0,closed loop APC,6.14718,5.000404,0.00807
+30.0,closed loop APC,6.19067,5.000390,0.00780
+31.0,closed loop APC,6.23494,5.000387,0.00774
+32.0,closed loop APC,6.27999,5.000404,0.00808
+33.0,closed loop APC,6.32582,5.000401,0.00803
+34.0,closed loop APC,6.37243,5.000387,0.00774
+35.0,closed loop APC,6.41989,5.000391,0.00781
+36.0,closed loop APC,6.46818,5.000395,0.00791
+37.0,closed loop APC,6.51734,5.000407,0.00814
+38.0,closed loop APC,6.56734,5.000386,0.00772
+39.0,closed loop APC,6.61828,5.000404,0.00807
+40.0,closed loop APC,6.67010,5.000398,0.00796
+41.0,closed loop APC,6.72286,5.000394,0.00788
+42.0,closed loop APC,6.77658,5.000395,0.00791
+43.0,closed loop APC,6.83129,5.000404,0.00808
+44.0,closed loop APC,6.88698,5.000399,0.00799
+45.0,closed loop APC,6.94370,5.000405,0.00810
+46.0,closed loop APC,7.00145,5.000399,0.00799
+47.0,closed loop APC,7.06028,5.000404,0.00807
+48.0,closed loop APC,7.12019,5.000396,0.00791
+49.0,closed loop APC,7.18123,5.000395,0.00789
+50.0,closed loop APC,7.24342,5.000398,0.00797
+51.0,closed loop APC,7.30679,5.000403,0.00806
+52.0,closed loop APC,7.37136,5.000405,0.00811
+53.0,closed loop APC,7.43715,5.000400,0.00800
+54.0,closed loop APC,7.50422,5.000402,0.00804
+55.0,closed loop APC,7.57258,5.000405,0.00809
+56.0,closed loop APC,7.64226,5.000400,0.00800
+57.0,closed loop APC,7.71330,5.000401,0.00801
+58.0,closed loop APC,7.78574,5.000396,0.00792
+59.0,closed loop APC,7.85962,5.000397,0.00793
+60.0,closed loop APC,7.93497,5.000390,0.00780
+61.0,closed loop APC,8.01185,5.000403,0.00806
+62.0,closed loop APC,8.09026,5.000402,0.00804
+63.0,closed loop APC,8.17026,5.000392,0.00785
+64.0,closed loop APC,8.25192,5.000395,0.00791
+65.0,closed loop APC,8.33526,5.000394,0.00788
+66.0,closed loop APC,8.42032,5.000388,0.00776
+67.0,closed loop APC,8.50718,5.000395,0.00789
+68.0,closed loop APC,8.59587,5.000393,0.00785
+69.0,closed loop APC,8.68646,5.000395,0.00790
+70.0,closed loop APC,8.77898,5.000396,0.00793

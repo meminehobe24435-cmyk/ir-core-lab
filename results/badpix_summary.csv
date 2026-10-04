@@ -1,0 +1,7 @@
+# metric,naive_1pass,iterated_clip
+detection_rate_pct,80.1223,100.0000
+false_alarm_pct,0.0000,0.2989
+detected_count,262,327
+false_alarm_count,0,48
+mae_before_counts,262.4503,262.4503
+mae_after_counts,7.8811,7.8811
